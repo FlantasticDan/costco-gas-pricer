@@ -22,6 +22,7 @@ def getCostcoAJAX(coord, maxResponse=10):
     '''Return the Costco AJAX Response for a pair of coordinates.'''
     lat = coord[0]
     lon = coord[1]
+    print("Sending Request to Costco AJAX")
     headers = {'Referrer-Policy': 'no-referrer', 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "1","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
     payload = f'https://www.costco.com/AjaxWarehouseBrowseLookupView?langId=-1&storeId=10301&numOfWarehouses={maxResponse}&hasGas=false&hasTires=false&hasFood=false&hasHearing=false&hasPharmacy=false&hasOptical=false&hasBusiness=false&hasPhotoCenter=false&tiresCheckout=0&isTransferWarehouse=false&populateWarehouseDetails=true&warehousePickupCheckout=false&latitude={lat}&longitude={lon}&countryCode=US'
     return requests.get(payload, headers=headers)
@@ -63,7 +64,7 @@ class CostcoLocation:
 
 def interpretCostcoAJAX(costcoAJAX):
     '''Interprets raw Costco AJAX Response and returns useful classes.'''
-    print(costcoAJAX)
+    print(f'Response from Costco AJAX: {costcoAJAX}')
     r = costcoAJAX.json()
     del r[0] # Response is always padded with an irrelevant True statement
     locations = []
