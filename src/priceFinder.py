@@ -63,6 +63,7 @@ class CostcoLocation:
 
 def interpretCostcoAJAX(costcoAJAX):
     '''Interprets raw Costco AJAX Response and returns useful classes.'''
+    print(costcoAJAX)
     r = costcoAJAX.json()
     del r[0] # Response is always padded with an irrelevant True statement
     locations = []
