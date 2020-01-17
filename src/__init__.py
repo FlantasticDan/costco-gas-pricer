@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import os
+from src.priceFinder import getCostcoLocations
 
 app = Flask(__name__)
 
@@ -9,5 +10,5 @@ def index():
 
 @app.route('/<zip>')
 def getResults(zip):
-    print(zip)
-    return render_template('results.html')
+    locations = getCostcoLocations(zip)
+    return render_template('results.html', locations=locations)

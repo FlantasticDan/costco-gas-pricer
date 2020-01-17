@@ -13,61 +13,68 @@
   <body>
     
     <div class="container">
-        <h1 class="text-center my-2">Costco </h1>
+        <h1 class="text-center my-2">Costco Gasoline Prices</h1>
 
-        <div class="row">
-            <div class="col-sm">
-                <div class="card text-center">
-                    <h4 class="card-header">Location ID</h4>
-                    <div class="card-body pt-0">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><a href="https://www.google.com">1600 Street Address <br> City, State, 00000 </a></li>
-                            <li class="list-group-item">
-                                <div class='row text-center'>
-                                    <div class="col">
-                                        <b>Weekdays</b> <br> 9am-5pm
-                                    </div>
-                                    <div class="col">
-                                        <b>Saturday</b> <br> 9am-5pm
-                                    </div>
-                                    <div class="col">
-                                        <b>Sunday</b> <br> 9am-5pm
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item pt-4">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="card text-center">
-                                            <h6>Regular</h6>
-                                            <h2>$3.45</h2>
+        <div class="row row-cols-sm-3">
+            {% for location in locations %}
+
+                {% if location.gas %}
+                <div class="col-sm">
+                    <div class="card text-center my-1">
+                        <h4 class="card-header">{{location.locationID}}</h4>
+                        <div class="card-body pt-0">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href={{location.addressLink}}>{{location.streetAddress}} <br> {{location.address2}} </a></li>
+                                <li class="list-group-item">
+                                    <div class='row text-center'>
+                                        <div class="col">
+                                            <b>Weekdays</b> <br> {{location.weekdays[0]}} - {{location.weekdays[1]}}
+                                        </div>
+                                        <div class="col">
+                                            <b>Saturday</b> <br> {{location.saturday[0]}} - {{location.saturday[1]}}
+                                        </div>
+                                        <div class="col">
+                                            <b>Sunday</b> <br> {{location.sunday[0]}} - {{location.sunday[1]}}
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="card text-center">
-                                            <h6>Premium</h6>
-                                            <h2>$3.65</h2>
+                                </li>
+                                <li class="list-group-item pt-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card text-center p-1">
+                                                <h6>Regular</h6>
+                                                <h2>${{location.regular}}</h2>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card text-center p-1">
+                                                <h6>Premium</h6>
+                                                <h2>${{location.premium}}</h2>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm">
-                <div class="card text-center">
-                    <h4 class="card-header">Location ID</h4>
-                    <div class="card-body pt-0">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><a href="https://www.google.com">1600 Street Address <br> City, State, 00000 </a></li>
-                            <li class="list-group-item">
-                                <i>Gasoline Not Sold at this Location</i>
-                            </li>
-                        </ul>
+                {% else %}
+                <div class="col-sm">
+                    <div class="card text-center my-1">
+                        <h4 class="card-header">{{location.locationID}}</h4>
+                        <div class="card-body pt-0">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href={{location.addressLink}}>{{location.streetAddress}} <br> {{location.address2}} </a></li>
+                                <li class="list-group-item">
+                                    <i>Gasoline Not Sold at this Location</i>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
+                {% endif %}
+
+            {% endfor %}
         </div>
     </div>
 

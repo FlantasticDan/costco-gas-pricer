@@ -43,8 +43,8 @@ class CostcoLocation:
 
     def gasPrices(self, gasAjax):
         self.gas = True
-        self.regular = gasAjax['regular'].rstrip('9')
-        self.premium = gasAjax['premium'].rstrip('9')
+        self.regular = gasAjax['regular'][:-1]
+        self.premium = gasAjax['premium'][:-1]
 
     def gasHours(self, hoursAjax):
         self.weekdays = self.formatHours(hoursAjax[0]['time'])
