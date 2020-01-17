@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 import os
-from src.priceFinder import getCostcoLocations
+from .priceFinder import getCostcoLocations
 
 app = Flask(__name__)
 
