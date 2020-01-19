@@ -19,15 +19,18 @@ def getCoordinates(ZIP):
     return findCoordinates(getBingResponse(ZIP))
 
 def getCostcoAJAX(coord, maxResponse=10):
-    '''Return the Costco AJAX Response for a pair of coordinates.'''
+    '''Return the Costco AJAX Request URL for a pair of coordinates.'''
     lat = coord[0]
     lon = coord[1]
-    print("Sending Request to Costco AJAX")
-    s = requests.Session()
-    headers = {'referer': 'http://www.costco.com/warehouse-locations', 'Referrer-Policy': 'no-referrer', 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "0","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
-    payload = f'http://www.costco.com/AjaxWarehouseBrowseLookupView?langId=-1&storeId=10301&numOfWarehouses={maxResponse}&hasGas=false&hasTires=false&hasFood=false&hasHearing=false&hasPharmacy=false&hasOptical=false&hasBusiness=false&hasPhotoCenter=false&tiresCheckout=0&isTransferWarehouse=false&populateWarehouseDetails=true&warehousePickupCheckout=false&latitude={lat}&longitude={lon}&countryCode=US'
-    s.get('https://google.com', headers=headers)
-    return s.get(payload, headers=headers)
+    # print("Sending Request to Costco AJAX")
+    # s = requests.Session()
+    # headers = {'referer': 'http://www.costco.com/warehouse-locations', 'Referrer-Policy': 'no-referrer', 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "0","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
+    payload = f'https://www.costco.com/AjaxWarehouseBrowseLookupView?langId=-1&storeId=10301&numOfWarehouses={maxResponse}&hasGas=false&hasTires=false&hasFood=false&hasHearing=false&hasPharmacy=false&hasOptical=false&hasBusiness=false&hasPhotoCenter=false&tiresCheckout=0&isTransferWarehouse=false&populateWarehouseDetails=true&warehousePickupCheckout=false&latitude={lat}&longitude={lon}&countryCode=US'
+    return payload
+
+def getCostcoAJAXurl(zip):
+    '''Convienence function to return the AJAX Request URL for a given ZIP code query.'''
+    return getCostcoAJAX(getCoordinates(zip))
 
 class CostcoLocation:
     def __init__(self, ajax):
